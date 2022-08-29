@@ -1,6 +1,7 @@
 let list = document.querySelector('.list')
-
-let dataInput = prompt('введи штрихи')
+let barcodesStr = prompt('введи штрихи')
+let form = document.querySelector('.form')
+let inputData = form.querySelector('.inputBarcod')
 
 function splitMulti(str, tokens) {
     var tempChar = tokens[0]; // We can use the first token as a temporary join character
@@ -11,17 +12,41 @@ function splitMulti(str, tokens) {
     return str;
 }
 
-let barcodeArr = splitMulti(dataInput, ['\r\n', ' '])
+let barcodeArr = splitMulti(barcodesStr, ['\r\n', ' '])
+let barcodeClearArr = []
 
-console.log(dataInput)
-console.log(barcodeArr)
+
+
+function clearArr(arr) {   
+    arr.forEach((element) => {
+        if (element.length == 13){
+            barcodeClearArr.push(element)
+        }
+    })
+}
 
 function createList(arr) {
     list.innerHTML = ''
     arr.forEach(element => {
-        console.log(element);
+        // console.log(element);
         list.innerHTML += `<li class="">${element}</li>`
     });
 }
 
-createList(barcodeArr)
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    let barcode = inputData.value
+
+    // if (barcode.length == 3){
+    //     console.log()
+    // }
+
+    // console.log(barcode)
+})
+
+
+
+
+clearArr(barcodeArr)
+createList(barcodeClearArr)
